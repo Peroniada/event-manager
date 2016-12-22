@@ -21,6 +21,7 @@ public class EventController {
     public String EventForm(Model model)
     {
         model.addAttribute("event", new Event());
+
         model.addAttribute("events", eventRepository.findAllByOrderByScoreDesc());
         return "eventview";
     }

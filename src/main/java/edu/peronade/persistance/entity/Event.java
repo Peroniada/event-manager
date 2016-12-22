@@ -1,8 +1,12 @@
 package edu.peronade.persistance.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 /**
  * Created by peronade on 22.12.16.
@@ -20,26 +24,26 @@ public class Event {
     private Long id;
     private String eventName;
     private String description;
-    private LocalDate dateOfEventCreation;
-    private LocalDate deadlineDateOfEvent;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date dateOfEventCreation;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date deadlineDateOfEvent;
     @Enumerated(EnumType.STRING)
     private Importance importance;
     private Double score;
-
-    public Event(Long id, String eventName, String description,  LocalDate deadlineDateOfEvent, Importance importance) {
-        this.id = id;
+    public Event(String eventName, String description,  Date deadlineDateOfEvent, Importance importance) {
         this.eventName = eventName;
         this.description = description;
         this.dateOfEventCreation = dateOfEventCreation;
         this.deadlineDateOfEvent = deadlineDateOfEvent;
-        this.dateOfEventCreation = LocalDate.now();
+        this.dateOfEventCreation = new Date();
         this.importance = importance;
         this.score = countScore();
     }
 
-
     public Event() {
     }
+
 
     public Long getId() {
         return id;
@@ -65,19 +69,19 @@ public class Event {
         this.description = description;
     }
 
-    public LocalDate getDateOfEventCreation() {
+    public Date getDateOfEventCreation() {
         return dateOfEventCreation;
     }
 
-    public void setDateOfEventCreation(LocalDate dateOfEventCreation) {
+    public void setDateOfEventCreation(Date dateOfEventCreation) {
         this.dateOfEventCreation = dateOfEventCreation;
     }
 
-    public LocalDate getDeadlineDateOfEvent() {
+    public Date getDeadlineDateOfEvent() {
         return deadlineDateOfEvent;
     }
 
-    public void setDeadlineDateOfEvent(LocalDate deadlineDateOfEvent) {
+    public void setDeadlineDateOfEvent(Date deadlineDateOfEvent) {
         this.deadlineDateOfEvent = deadlineDateOfEvent;
     }
 
@@ -113,6 +117,7 @@ public class Event {
 
 
     private Double countScore() throws ArithmeticException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         long timeToHaveEventFinished = (ChronoUnit.DAYS.between(dateOfEventCreation, deadlineDateOfEvent));
         switch (this.importance)
         {

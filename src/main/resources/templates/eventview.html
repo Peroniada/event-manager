@@ -18,15 +18,15 @@
             <input type="date" th:field="*{deadlineDateOfEvent}" />
             <p>How important?</p>
             <p>Urgent Important
-                <input type="radio" th:field="*{importance}" th:value="${URGENT_IMPORTANT}" /> </p>
+                <input type="radio" name="importance" th:field="*{importance}" th:value="${URGENT_IMPORTANT}" /> </p>
             <p>Not Urgent Important
-                <input type="radio" th:field="*{importance}" th:value="${NOT_URGENT_IMPORTANT}" />
+                <input type="radio" name="importance" th:field="*{importance}" th:value="${NOT_URGENT_IMPORTANT}" />
             </p>
             <p>Urgent Not Important
-                <input type="radio" th:field="*{importance}" th:value="${URGENT_NOT_IMPORTANT}" />
+                <input type="radio" name="importance" th:field="*{importance}" th:value="${URGENT_NOT_IMPORTANT}" />
             </p>
             <p>Not Urgent Not Important
-                <input type="radio" th:field="*{importance}" th:value="${NOT_URGENT_NOT_IMPORTANT}" />
+                <input type="radio" name="importance" th:field="*{importance}" th:value="${NOT_URGENT_NOT_IMPORTANT}" />
             </p>
             <input type="submit" value="Submit" />
             <input type="reset" value="Reset" />
@@ -35,7 +35,7 @@
     </div>
     <div>
         <ol>
-            <li th:each="event: ${events}" th:text="${event.eventName}"></li>
+            <li th:each="event: ${events}" th:text="${event.eventName + ' ' + event.deadlineDateOfEvent + ' ' + event.score + ' ' + event.dateOfEventCreation}"></li>
         </ol>
     </div>
 
