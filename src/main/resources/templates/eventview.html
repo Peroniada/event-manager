@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>
+<!--        <p>The time is: <strong th:text="${#temporals.format(now, 'dd/MMM/yyyy HH:mm')}">31/12/2015 15:00</strong></p>-->
+    </h1>
+    <div>
+        <h1>Form</h1>
+        <form action="#" th:action="@{/events}" th:object="${event}" method="post">
+            <input type="text" placeholder="Event Name" th:field="*{eventName}" />
+            <input type="text" placeholder="Description" th:field="*{description}" />
+            <input type="date" th:field="*{deadlineDateOfEvent}" />
+            <p>How important?</p>
+            <p>Urgent Important
+                <input type="radio" th:field="*{importance}" th:value="${URGENT_IMPORTANT}" /> </p>
+            <p>Not Urgent Important
+                <input type="radio" th:field="*{importance}" th:value="${NOT_URGENT_IMPORTANT}" />
+            </p>
+            <p>Urgent Not Important
+                <input type="radio" th:field="*{importance}" th:value="${URGENT_NOT_IMPORTANT}" />
+            </p>
+            <p>Not Urgent Not Important
+                <input type="radio" th:field="*{importance}" th:value="${NOT_URGENT_NOT_IMPORTANT}" />
+            </p>
+            <input type="submit" value="Submit" />
+            <input type="reset" value="Reset" />
+
+        </form>
+    </div>
+    <div>
+        <ol>
+            <li th:each="event: ${events}" th:text="${event.eventName}"></li>
+        </ol>
+    </div>
+
+</body>
+
+</html>
